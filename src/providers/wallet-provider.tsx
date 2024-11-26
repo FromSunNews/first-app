@@ -14,7 +14,7 @@ import { TrustWallet } from "@trustwallet/aptos-wallet-adapter";
 import { WelldoneWallet } from "@welldone-studio/aptos-wallet-adapter";
 import { MSafeWalletAdapter } from "@msafe/aptos-wallet-adapter";
 import { OKXWallet } from "@okwallet/aptos-wallet-adapter";
-import { PropsWithChildren, useMemo } from "react";
+import { PropsWithChildren } from "react";
 import { Network } from "@aptos-labs/ts-sdk";
 import { useToast } from "@/hooks/shared/use-toast";
 import { useAutoConnect } from "./auto-connect-provider";

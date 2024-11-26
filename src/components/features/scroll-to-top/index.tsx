@@ -25,7 +25,7 @@ export function ScrollToTop() {
     return () => {
       window.removeEventListener("scroll", checkScrollTop)
     }
-  }, [])
+  }, [checkScrollTop])
 
   return (
     <Button

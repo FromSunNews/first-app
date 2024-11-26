@@ -44,6 +44,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/shared/ui/dropdown-menu";
 import { useToast } from "@/hooks/shared/use-toast";
+import Image from "next/image";
 
 export function WalletSelector(walletSortingOptions: WalletSortingOptions) {
   const { account, connected, disconnect, wallet } = useWallet();
@@ -73,9 +74,9 @@ export function WalletSelector(walletSortingOptions: WalletSortingOptions) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
-          <img
-            src={wallet?.icon}
-            alt={wallet?.name}
+          <Image
+            src={wallet?.icon ?? ""}
+            alt={wallet?.name ?? ""}
             width={20}
             height={20}
             className="rounded-full"

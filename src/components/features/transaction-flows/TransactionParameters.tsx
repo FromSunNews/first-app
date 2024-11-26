@@ -14,9 +14,9 @@ const MaxGasAMount = 10000;
 
 export function TransactionParameters() {
   const { toast } = useToast();
-  const { connected, account, network, signAndSubmitTransaction, wallet } =
-    useWallet();
-  let sendable = isSendableNetwork(connected, network?.name);
+  const { connected, account, network, signAndSubmitTransaction, wallet } = useWallet();
+
+  const sendable = isSendableNetwork(connected, network?.name);
 
   const onSignAndSubmitTransaction = async () => {
     if (!account) return;
