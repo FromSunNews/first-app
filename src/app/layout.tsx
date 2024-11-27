@@ -5,6 +5,7 @@ import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/shared/ui/toaster";
 import { Providers } from "@/providers";
 import { Header } from "@/components/shared/layout/header";
+import { FloatingSocial } from "@/components/features/floating-social";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} relative antialiased flex flex-col min-h-screen`}
         suppressHydrationWarning
       >
         <ThemeProvider
@@ -47,6 +48,7 @@ export default function RootLayout({
               {children}
             </main>
             {/* <Footer /> */}
+            <FloatingSocial />
             <Toaster />
           </Providers>
         </ThemeProvider>
