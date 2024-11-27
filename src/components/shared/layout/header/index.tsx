@@ -99,7 +99,7 @@ export function Header() {
   }
 
   return (
-    <header className="fixed left-0 top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b border-border">
+    <header className="fixed left-0 top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b border-border md:px-0 px-4">
       <nav className="container mx-auto flex items-center justify-between h-16">
         {/* Logo với animation */}
         <motion.div
@@ -129,19 +129,13 @@ export function Header() {
                     handleNavigation(item.path)
                   }}
                   className={cn(
-                    "flex items-center gap-2 transition-colors py-1.5 rounded-md",
-                    // isActive
-                    //   ? "text-primary bg-primary/10"
-                    //   : "text-muted-foreground hover:text-primary hover:bg-accent"
+                    "flex items-center gap-2 transition-colors py-1.5 rounded-md"
                   )}
                 >
                   <Icon className={cn(
-                    "h-4 w-4",
-                    // isActive
-                    //   ? "text-primary"
-                    //   : "text-muted-foreground group-hover:text-primary"
+                    "h-5 w-5"
                   )} />
-                  {item.title}
+                  <span className="text-base">{item.title}</span>
                 </Link>
                 {isActive && (
                   <motion.div
@@ -168,7 +162,8 @@ export function Header() {
                 whileHover={{ y: -2 }}
                 whileTap={{ y: 0 }}
               >
-                More <ChevronDown className="h-4 w-4" />
+                <span className="text-base">More</span>
+                <ChevronDown className="h-5 w-5" />
               </motion.button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-popover border-border">
@@ -192,7 +187,7 @@ export function Header() {
                       )}
                     >
                       <Icon className={cn(
-                        "h-4 w-4"
+                        "h-5 w-5"
                       )} />
                       {item.title}
                     </Link>
