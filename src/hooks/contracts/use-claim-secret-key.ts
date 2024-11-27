@@ -22,7 +22,8 @@ function getPersistedClaimSecretKey() {
 }
 
 export function useClaimSecretKey() {
-  const claimEnabled = typeof window !== "undefined" && new URL(window.location.href).searchParams.get("claim") !== null;
+  const claimEnabled =
+    typeof window !== "undefined" && new URL(window.location.href).searchParams.get("claim") !== null;
   const claimSecretKey = claimEnabled ? getPersistedClaimSecretKey() : undefined;
   const claimAccountAddress = useMemo(() => {
     if (!claimSecretKey) {
@@ -35,18 +36,24 @@ export function useClaimSecretKey() {
 
   const { data: claimableBalance } = useQuery({
     queryKey: ["accounts", claimAccountAddress, "aptBalance"],
-    queryFn: async () => aptos.getAccountCoinAmount({
-      accountAddress: claimAccountAddress!,
-      coinType: "0x1::aptos_coin::AptosCoin",
-    }),
+    queryFn: async () =>
+      aptos.getAccountCoinAmount({
+        accountAddress: claimAccountAddress!,
+        coinType: "0x1::aptos_coin::AptosCoin",
+      }),
     enabled: claimAccountAddress !== undefined,
   });
 
-  const { isPending: isFunding, mutate: fundAccount, isSuccess: isFunded } = useMutation({
-    mutationFn: async (accountAddress: AccountAddress) => aptos.fundAccount({
-      accountAddress,
-      amount: 1e8 - (claimableBalance ?? 0),
-    }),
+  const {
+    isPending: isFunding,
+    mutate: fundAccount,
+    isSuccess: isFunded,
+  } = useMutation({
+    mutationFn: async (accountAddress: AccountAddress) =>
+      aptos.fundAccount({
+        accountAddress,
+        amount: 1e8 - (claimableBalance ?? 0),
+      }),
   });
 
   useEffect(() => {

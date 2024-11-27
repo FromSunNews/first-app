@@ -3,18 +3,14 @@ import {
   AptosChangeNetworkOutput,
   NetworkInfo,
   WalletInfo,
-  isAptosNetwork
+  isAptosNetwork,
 } from "@aptos-labs/wallet-adapter-react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/shared/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/shared/ui/card";
 import { DisplayValue, LabelValueGrid } from "@/components/features/label-value-grid";
 import { Network } from "@aptos-labs/ts-sdk";
 import { Label } from "@/components/shared/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/shared/ui/radio-group";
+import Image from "next/image";
 
 interface WalletConnectionProps {
   account: AccountInfo | null;
@@ -23,12 +19,7 @@ interface WalletConnectionProps {
   changeNetwork: (network: Network) => Promise<AptosChangeNetworkOutput>;
 }
 
-export function WalletConnection({
-  account,
-  network,
-  wallet,
-  changeNetwork,
-}: WalletConnectionProps) {
+export function WalletConnection({ account, network, wallet, changeNetwork }: WalletConnectionProps) {
   const isValidNetworkName = () => {
     if (isAptosNetwork(network)) {
       return Object.values<string | undefined>(Network).includes(network?.name);
@@ -54,13 +45,7 @@ export function WalletConnection({
               {
                 label: "Icon",
                 value: wallet?.icon ? (
-                  <img
-                    src={wallet.icon}
-                    alt={wallet.name}
-                    width={24}
-                    height={24}
-                    className="rounded-full"
-                  />
+                  <Image src={wallet.icon} alt={wallet.name} width={24} height={24} className="rounded-full" />
                 ) : (
                   "Not Present"
                 ),
@@ -72,12 +57,7 @@ export function WalletConnection({
               {
                 label: "URL",
                 value: wallet?.url ? (
-                  <a
-                    href={wallet.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-blue-600 dark:text-blue-300"
-                  >
+                  <a href={wallet.url} target="_blank" rel="noreferrer" className="text-blue-600 dark:text-blue-300">
                     {wallet.url}
                   </a>
                 ) : (
@@ -94,12 +74,7 @@ export function WalletConnection({
             items={[
               {
                 label: "Address",
-                value: (
-                  <DisplayValue
-                    value={account?.address ?? "Not Present"}
-                    isCorrect={!!account?.address}
-                  />
-                ),
+                value: <DisplayValue value={account?.address ?? "Not Present"} isCorrect={!!account?.address} />,
               },
               {
                 label: "Public key",
@@ -118,9 +93,7 @@ export function WalletConnection({
               {
                 label: "Min keys required",
                 subLabel: "(only for multisig)",
-                value: (
-                  <p>{account?.minKeysRequired?.toString() ?? "Not Present"}</p>
-                ),
+                value: <p>{account?.minKeysRequired?.toString() ?? "Not Present"}</p>,
               },
             ]}
           />
@@ -143,12 +116,7 @@ export function WalletConnection({
               {
                 label: "URL",
                 value: network?.url ? (
-                  <a
-                    href={network.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-blue-600 dark:text-blue-300"
-                  >
+                  <a href={network.url} target="_blank" rel="noreferrer" className="text-blue-600 dark:text-blue-300">
                     {network.url}
                   </a>
                 ) : (
@@ -187,8 +155,7 @@ export function WalletConnection({
           </RadioGroup>
           {!isNetworkChangeSupported && (
             <div className="text-sm text-red-600 dark:text-red-400">
-              * {wallet?.name ?? "This wallet"} does not support network change
-              requests
+              * {wallet?.name ?? "This wallet"} does not support network change requests
             </div>
           )}
         </div>

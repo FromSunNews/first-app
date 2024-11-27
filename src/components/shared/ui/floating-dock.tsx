@@ -8,14 +8,7 @@
 
 import { cn } from "@/libs/utils/taildwind";
 import { TbLayoutNavbarCollapse } from "react-icons/tb";
-import {
-  AnimatePresence,
-  MotionValue,
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import { AnimatePresence, MotionValue, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
 import { useRef, useState } from "react";
 
@@ -48,10 +41,7 @@ const FloatingDockMobile = ({
     <div className={cn("relative block md:hidden", className)}>
       <AnimatePresence>
         {open && (
-          <motion.div
-            layoutId="nav"
-            className="absolute bottom-full mb-2 inset-x-0 flex flex-col gap-2"
-          >
+          <motion.div layoutId="nav" className="absolute inset-x-0 bottom-full mb-2 flex flex-col gap-2">
             {items.map((item, idx) => (
               <motion.div
                 key={item.title}
@@ -73,7 +63,7 @@ const FloatingDockMobile = ({
                   target="_blank"
                   href={item.href}
                   key={item.title}
-                  className="h-10 w-10 rounded-full bg-secondary hover:bg-secondary/80 flex items-center justify-center"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary hover:bg-secondary/80"
                 >
                   <div className="h-4 w-4 text-secondary-foreground">{item.icon}</div>
                 </Link>
@@ -84,7 +74,7 @@ const FloatingDockMobile = ({
       </AnimatePresence>
       <button
         onClick={() => setOpen(!open)}
-        className="h-10 w-10 rounded-full bg-secondary hover:bg-secondary/80 flex items-center justify-center"
+        className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary hover:bg-secondary/80"
       >
         <TbLayoutNavbarCollapse className="h-5 w-5 text-secondary-foreground" />
       </button>
@@ -99,13 +89,13 @@ const FloatingDockDesktop = ({
   items: { title: string; icon: React.ReactNode; href: string }[];
   className?: string;
 }) => {
-  let mouseY = useMotionValue(Infinity);
+  const mouseY = useMotionValue(Infinity);
   return (
     <motion.div
       onMouseMove={(e) => mouseY.set(e.pageY)}
       onMouseLeave={() => mouseY.set(Infinity)}
       className={cn(
-        "hidden md:flex w-14 flex-col gap-3 items-center rounded-full bg-secondary/10 dark:bg-secondary/30 backdrop-blur-md py-3 shadow-lg",
+        "hidden w-14 flex-col items-center gap-3 rounded-full bg-secondary/10 py-3 shadow-lg backdrop-blur-md dark:bg-secondary/30 md:flex",
         className
       )}
     >
@@ -127,42 +117,42 @@ function IconContainer({
   icon: React.ReactNode;
   href: string;
 }) {
-  let ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
-  let distance = useTransform(mouseY, (val) => {
-    let bounds = ref.current?.getBoundingClientRect() ?? { y: 0, height: 0 };
+  const distance = useTransform(mouseY, (val) => {
+    const bounds = ref.current?.getBoundingClientRect() ?? { y: 0, height: 0 };
     return val - bounds.y - bounds.height / 2;
   });
 
-  let widthTransform = useTransform(distance, [-100, 0, 100], [36, 56, 36]);
-  let heightTransform = useTransform(distance, [-100, 0, 100], [36, 56, 36]);
-  let widthTransformIcon = useTransform(distance, [-100, 0, 100], [18, 28, 18]);
-  let heightTransformIcon = useTransform(distance, [-100, 0, 100], [18, 28, 18]);
-  let xTransform = useTransform(distance, [-100, 0, 100], [0, -16, 0]);
+  const widthTransform = useTransform(distance, [-100, 0, 100], [36, 56, 36]);
+  const heightTransform = useTransform(distance, [-100, 0, 100], [36, 56, 36]);
+  const widthTransformIcon = useTransform(distance, [-100, 0, 100], [18, 28, 18]);
+  const heightTransformIcon = useTransform(distance, [-100, 0, 100], [18, 28, 18]);
+  const xTransform = useTransform(distance, [-100, 0, 100], [0, -16, 0]);
 
-  let translateX = useSpring(xTransform, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
-  });
-
-  let width = useSpring(widthTransform, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
-  });
-  let height = useSpring(heightTransform, {
+  const translateX = useSpring(xTransform, {
     mass: 0.1,
     stiffness: 150,
     damping: 12,
   });
 
-  let widthIcon = useSpring(widthTransformIcon, {
+  const width = useSpring(widthTransform, {
     mass: 0.1,
     stiffness: 150,
     damping: 12,
   });
-  let heightIcon = useSpring(heightTransformIcon, {
+  const height = useSpring(heightTransform, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+
+  const widthIcon = useSpring(widthTransformIcon, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+  const heightIcon = useSpring(heightTransformIcon, {
     mass: 0.1,
     stiffness: 150,
     damping: 12,
@@ -181,7 +171,7 @@ function IconContainer({
         }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="aspect-square rounded-full bg-secondary hover:bg-secondary/80 flex items-center justify-center relative"
+        className="relative flex aspect-square items-center justify-center rounded-full bg-secondary hover:bg-secondary/80"
       >
         <AnimatePresence>
           {hovered && (
@@ -189,7 +179,7 @@ function IconContainer({
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: -8 }}
               exit={{ opacity: 0, x: -10 }}
-              className="px-2 py-1 h-auto whitespace-pre rounded-md bg-secondary/10 dark:bg-secondary/30 border-border text-secondary-foreground absolute right-full mr-2 text-xs shadow-md"
+              className="absolute right-full mr-2 h-auto whitespace-pre rounded-md border-border bg-secondary/10 px-2 py-1 text-xs text-secondary-foreground shadow-md dark:bg-secondary/30"
             >
               {title}
             </motion.div>

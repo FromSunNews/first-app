@@ -1,12 +1,7 @@
 "use client";
 
 import { aptosClient, isSendableNetwork } from "@/libs/aptos/config";
-import {
-  Account,
-  AccountAuthenticator,
-  AnyRawTransaction,
-  Ed25519Account,
-} from "@aptos-labs/ts-sdk";
+import { Account, AccountAuthenticator, AnyRawTransaction, Ed25519Account } from "@aptos-labs/ts-sdk";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useState } from "react";
 import { TransactionHash } from "@/components/features/transaction-hash";
@@ -19,18 +14,13 @@ const APTOS_COIN = "0x1::aptos_coin::AptosCoin";
 
 export function MultiAgent() {
   const { toast } = useToast();
-  const { connected, account, network, signTransaction, submitTransaction } =
-    useWallet();
+  const { connected, account, network, signTransaction, submitTransaction } = useWallet();
 
-  const [secondarySignerAccount, setSecondarySignerAccount] =
-    useState<Ed25519Account>();
-  const [transactionToSubmit, setTransactionToSubmit] =
-    useState<AnyRawTransaction | null>(null);
+  const [secondarySignerAccount, setSecondarySignerAccount] = useState<Ed25519Account>();
+  const [transactionToSubmit, setTransactionToSubmit] = useState<AnyRawTransaction | null>(null);
 
-  const [senderAuthenticator, setSenderAuthenticator] =
-    useState<AccountAuthenticator>();
-  const [secondarySignerAuthenticator, setSecondarySignerAuthenticator] =
-    useState<AccountAuthenticator>();
+  const [senderAuthenticator, setSenderAuthenticator] = useState<AccountAuthenticator>();
+  const [secondarySignerAuthenticator, setSecondarySignerAuthenticator] = useState<AccountAuthenticator>();
 
   const sendable = isSendableNetwork(connected, network?.name);
 
@@ -47,13 +37,11 @@ export function MultiAgent() {
     await aptosClient(network).fundAccount({
       accountAddress: secondarySigner.accountAddress.toString(),
       amount: 100_000_000,
-      options: { waitForIndexer: false }
+      options: { waitForIndexer: false },
     });
     setSecondarySignerAccount(secondarySigner);
 
-    const transactionToSign = await aptosClient(
-      network,
-    ).transaction.build.multiAgent({
+    const transactionToSign = await aptosClient(network).transaction.build.multiAgent({
       sender: account.address,
       secondarySignerAddresses: [secondarySigner.accountAddress],
       data: {
@@ -128,16 +116,10 @@ export function MultiAgent() {
           <Button onClick={onSenderSignTransaction} disabled={!sendable}>
             Sign as sender
           </Button>
-          <Button
-            onClick={onSecondarySignerSignTransaction}
-            disabled={!sendable || !senderAuthenticator}
-          >
+          <Button onClick={onSecondarySignerSignTransaction} disabled={!sendable || !senderAuthenticator}>
             Sign as secondary signer
           </Button>
-          <Button
-            onClick={onSubmitTransaction}
-            disabled={!sendable || !secondarySignerAuthenticator}
-          >
+          <Button onClick={onSubmitTransaction} disabled={!sendable || !secondarySignerAuthenticator}>
             Submit transaction
           </Button>
         </div>

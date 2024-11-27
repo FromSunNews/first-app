@@ -1,11 +1,7 @@
 "use client";
 
 import { aptosClient, isSendableNetwork } from "@/libs/aptos/config";
-import {
-  Account,
-  AccountAuthenticator,
-  AnyRawTransaction,
-} from "@aptos-labs/ts-sdk";
+import { Account, AccountAuthenticator, AnyRawTransaction } from "@aptos-labs/ts-sdk";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useState } from "react";
 import { TransactionHash } from "@/components/features/transaction-hash";
@@ -17,15 +13,11 @@ const APTOS_COIN = "0x1::aptos_coin::AptosCoin";
 
 export function Sponsor() {
   const { toast } = useToast();
-  const { connected, account, network, signTransaction, submitTransaction } =
-    useWallet();
-  const [transactionToSubmit, setTransactionToSubmit] =
-    useState<AnyRawTransaction | null>(null);
+  const { connected, account, network, signTransaction, submitTransaction } = useWallet();
+  const [transactionToSubmit, setTransactionToSubmit] = useState<AnyRawTransaction | null>(null);
 
-  const [senderAuthenticator, setSenderAuthenticator] =
-    useState<AccountAuthenticator>();
-  const [feepayerAuthenticator, setFeepayerAuthenticator] =
-    useState<AccountAuthenticator>();
+  const [senderAuthenticator, setSenderAuthenticator] = useState<AccountAuthenticator>();
+  const [feepayerAuthenticator, setFeepayerAuthenticator] = useState<AccountAuthenticator>();
 
   const sendable = isSendableNetwork(connected, network?.name);
 
@@ -38,9 +30,7 @@ export function Sponsor() {
     if (!account) {
       throw new Error("no account");
     }
-    const transactionToSign = await aptosClient(
-      network
-    ).transaction.build.simple({
+    const transactionToSign = await aptosClient(network).transaction.build.simple({
       sender: account.address,
       withFeePayer: true,
       data: {
@@ -73,9 +63,7 @@ export function Sponsor() {
         accountAddress: sponsor.accountAddress,
         amount: SPONSOR_INITIAL_BALANCE,
       });
-      const authenticator = await aptosClient(
-        network
-      ).transaction.signAsFeePayer({
+      const authenticator = await aptosClient(network).transaction.signAsFeePayer({
         signer: sponsor,
         transaction: transactionToSubmit,
       });
@@ -119,16 +107,10 @@ export function Sponsor() {
         <Button onClick={onSignTransaction} disabled={!sendable}>
           Sign as sender
         </Button>
-        <Button
-          onClick={onSignTransactionAsSponsor}
-          disabled={!sendable || !senderAuthenticator}
-        >
+        <Button onClick={onSignTransactionAsSponsor} disabled={!sendable || !senderAuthenticator}>
           Sign as sponsor
         </Button>
-        <Button
-          onClick={onSubmitTransaction}
-          disabled={!sendable || !senderAuthenticator}
-        >
+        <Button onClick={onSubmitTransaction} disabled={!sendable || !senderAuthenticator}>
           Submit transaction
         </Button>
       </CardContent>

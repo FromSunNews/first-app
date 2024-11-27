@@ -27,16 +27,10 @@ export const DEVNET_CLIENT = new Aptos(DEVNET_CONFIG);
 export const TESTNET_CONFIG = new AptosConfig({ network: Network.TESTNET });
 export const TESTNET_CLIENT = new Aptos(TESTNET_CONFIG);
 
-export const isSendableNetwork = (
-  connected: boolean,
-  networkName?: string,
-): boolean => {
+export const isSendableNetwork = (connected: boolean, networkName?: string): boolean => {
   return connected && !isMainnet(connected, networkName);
 };
 
-export const isMainnet = (
-  connected: boolean,
-  networkName?: string,
-): boolean => {
+export const isMainnet = (connected: boolean, networkName?: string): boolean => {
   return connected && networkName === Network.MAINNET;
 };

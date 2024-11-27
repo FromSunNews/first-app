@@ -12,12 +12,7 @@ export default function FarmPage() {
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
       {connected ? (
-        <WalletConnection
-          account={account}
-          network={network}
-          wallet={wallet}
-          changeNetwork={changeNetwork}
-        />
+        <WalletConnection account={account} network={network} wallet={wallet} changeNetwork={changeNetwork} />
       ) : (
         <div>
           <p>No wallet connected</p>
@@ -28,9 +23,7 @@ export default function FarmPage() {
         <Alert variant="warning">
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Warning</AlertTitle>
-          <AlertDescription>
-            The transactions flows below will not work on the Mainnet network.
-          </AlertDescription>
+          <AlertDescription>The transactions flows below will not work on the Mainnet network.</AlertDescription>
         </Alert>
       )}
       {connected && (
@@ -42,5 +35,5 @@ export default function FarmPage() {
         </>
       )}
     </div>
-  )
+  );
 }

@@ -1,15 +1,7 @@
-import { cn } from "@/libs/utils/taildwind"
+import { cn } from "@/libs/utils/taildwind";
 
-function Skeleton({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div
-      className={cn("animate-pulse rounded-md bg-primary/10", className)}
-      {...props}
-    />
-  )
+function Skeleton({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn("animate-pulse rounded-md bg-primary/10", className)} {...props} />;
 }
 
-export { Skeleton }
+export { Skeleton };

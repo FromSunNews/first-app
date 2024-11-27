@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  AptosWalletAdapterProvider,
-  NetworkName,
-} from "@aptos-labs/wallet-adapter-react";
+import { AptosWalletAdapterProvider, NetworkName } from "@aptos-labs/wallet-adapter-react";
 import { BitgetWallet } from "@bitget-wallet/aptos-wallet-adapter";
 import { BloctoWallet } from "@blocto/aptos-wallet-adapter-plugin";
 import { MartianWallet } from "@martianwallet/aptos-wallet-adapter";
@@ -65,8 +62,7 @@ export function WalletProvider({ children }: PropsWithChildren) {
           dappId: "57fa42a9-29c6-4f1e-939c-4eefa36d9ff5",
         },
         mizuwallet: {
-          manifestURL:
-            "https://assets.mz.xyz/static/config/mizuwallet-connect-manifest.json",
+          manifestURL: "https://assets.mz.xyz/static/config/mizuwallet-connect-manifest.json",
         },
       }}
       onError={(error: unknown) => {

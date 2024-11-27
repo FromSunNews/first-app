@@ -1,10 +1,7 @@
 "use client";
 
 import { aptosClient, isSendableNetwork } from "@/libs/aptos/config";
-import {
-  InputTransactionData,
-  useWallet,
-} from "@aptos-labs/wallet-adapter-react";
+import { InputTransactionData, useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Button } from "@/components/shared/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/shared/ui/card";
 import { useToast } from "@/hooks/shared/use-toast";
@@ -30,11 +27,9 @@ export function TransactionParameters() {
     };
     try {
       const commitedTransaction = await signAndSubmitTransaction(transaction);
-      const executedTransaction = await aptosClient(network).waitForTransaction(
-        {
-          transactionHash: commitedTransaction.hash,
-        },
-      );
+      const executedTransaction = await aptosClient(network).waitForTransaction({
+        transactionHash: commitedTransaction.hash,
+      });
       // Check maxGasAmount is respected by the current connected Wallet
       if ((executedTransaction as any).max_gas_amount == MaxGasAMount) {
         toast({

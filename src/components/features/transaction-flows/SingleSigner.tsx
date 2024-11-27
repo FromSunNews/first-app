@@ -13,15 +13,8 @@ const APTOS_COIN = "0x1::aptos_coin::AptosCoin";
 
 export function SingleSigner() {
   const { toast } = useToast();
-  const {
-    connected,
-    account,
-    network,
-    signAndSubmitTransaction,
-    signMessageAndVerify,
-    signMessage,
-    signTransaction,
-  } = useWallet();
+  const { connected, account, network, signAndSubmitTransaction, signMessageAndVerify, signMessage, signTransaction } =
+    useWallet();
   const sendable = isSendableNetwork(connected, network?.name);
 
   const onSignMessageAndVerify = async () => {
@@ -117,9 +110,7 @@ export function SingleSigner() {
     if (!account) return;
 
     try {
-      const transactionToSign = await aptosClient(
-        network,
-      ).transaction.build.simple({
+      const transactionToSign = await aptosClient(network).transaction.build.simple({
         sender: account.address,
         data: {
           function: "0x1::coin::transfer",
