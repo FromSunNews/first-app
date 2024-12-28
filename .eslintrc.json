@@ -21,11 +21,7 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended"
   ],
-  "plugins": [
-    "@typescript-eslint",
-    "unused-imports",
-    "simple-import-sort"
-  ],
+  "plugins": ["@typescript-eslint", "unused-imports", "simple-import-sort"],
   "rules": {
     "prettier/prettier": "error",
     // "import/prefer-default-export": "off",
@@ -61,10 +57,7 @@
     "no-unused-vars": "warn",
     "no-param-reassign": "off",
     "no-case-declarations": "off",
-    "quote-props": [
-      "warn",
-      "as-needed"
-    ],
+    "quote-props": ["warn", "as-needed"],
     "unused-imports/no-unused-imports": "warn",
     "unused-imports/no-unused-vars": [
       "warn",
@@ -82,10 +75,7 @@
     "react/jsx-filename-extension": [
       "warn",
       {
-        "extensions": [
-          "ts",
-          "tsx"
-        ]
+        "extensions": ["ts", "tsx"]
       }
     ],
     "react/prop-types": "off",

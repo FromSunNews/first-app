@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/libs/utils/taildwind";
 
 function Skeleton({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
