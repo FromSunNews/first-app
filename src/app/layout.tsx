@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${poppins.variable} relative flex min-h-screen flex-col antialiased`} suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <Providers>
-            <div className="relative flex min-h-screen">
+            <div className="relative flex min-h-screen w-full">
               <AppSidebar />
               <main className="flex-1 overflow-auto">{children}</main>
             </div>

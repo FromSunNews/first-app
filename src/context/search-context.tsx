@@ -24,6 +24,7 @@ export function SearchProvider({ children }: Props) {
         setOpen((open) => !open);
       }
     };
+
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
   }, []);
@@ -36,7 +37,6 @@ export function SearchProvider({ children }: Props) {
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useSearch = () => {
   const searchContext = React.useContext(SearchContext);
 

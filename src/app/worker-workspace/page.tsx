@@ -1,68 +1,94 @@
-import { Icons } from "@/components/shared/icons";
+"use client";
+
 import { PageContainer } from "@/components/layout/page-container";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/shared/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/shared/ui/tabs";
+import { Activity, Cpu, Server, Wallet } from "lucide-react";
 
-export default function WorkerWorkspacePage() {
+export default function WorkerDashboard() {
   return (
-    <PageContainer title="Worker Workspace">
-      <div className="flex flex-col items-center justify-center space-y-4 text-center">
-        <div className="rounded-full bg-primary/10 p-4">
-          <Icons.server className="h-8 w-8" />
-        </div>
-        <h1 className="text-3xl font-bold tracking-tight">Welcome to Worker Workspace</h1>
-        <p className="text-muted-foreground">
-          Manage your worker nodes, monitor performance, and track earnings in one place.
-        </p>
-      </div>
-
+    <PageContainer
+      title="Worker Dashboard"
+      description="Monitor and manage your worker nodes"
+    >
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-lg border bg-card p-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="rounded-lg bg-primary/10 p-2">
-              <Icons.server className="h-5 w-5" />
-            </div>
-            <div>
-              <h3 className="font-semibold">Node Management</h3>
-              <p className="text-sm text-muted-foreground">Register and manage your worker nodes</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-lg border bg-card p-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="rounded-lg bg-primary/10 p-2">
-              <Icons.activity className="h-5 w-5" />
-            </div>
-            <div>
-              <h3 className="font-semibold">Performance</h3>
-              <p className="text-sm text-muted-foreground">Monitor node performance metrics</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-lg border bg-card p-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="rounded-lg bg-primary/10 p-2">
-              <Icons.wallet className="h-5 w-5" />
-            </div>
-            <div>
-              <h3 className="font-semibold">Earnings</h3>
-              <p className="text-sm text-muted-foreground">Track your earnings and payouts</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-lg border bg-card p-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="rounded-lg bg-primary/10 p-2">
-              <Icons.shield className="h-5 w-5" />
-            </div>
-            <div>
-              <h3 className="font-semibold">Security</h3>
-              <p className="text-sm text-muted-foreground">Manage security settings</p>
-            </div>
-          </div>
-        </div>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Active Nodes</CardTitle>
+            <Server className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">2</div>
+            <p className="text-xs text-muted-foreground">
+              +1 from last month
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">CPU Usage</CardTitle>
+            <Cpu className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">78%</div>
+            <p className="text-xs text-muted-foreground">
+              +12% from last hour
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Tasks</CardTitle>
+            <Activity className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">124</div>
+            <p className="text-xs text-muted-foreground">
+              +18 from yesterday
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Earnings</CardTitle>
+            <Wallet className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">$432.89</div>
+            <p className="text-xs text-muted-foreground">
+              +20.1% from last month
+            </p>
+          </CardContent>
+        </Card>
       </div>
+
+      <Tabs defaultValue="overview" className="mt-6">
+        <TabsList>
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="analytics">Analytics</TabsTrigger>
+          <TabsTrigger value="reports">Reports</TabsTrigger>
+        </TabsList>
+        <TabsContent value="overview" className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+            <Card className="col-span-4">
+              <CardHeader>
+                <CardTitle>Performance Overview</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {/* Add performance chart here */}
+              </CardContent>
+            </Card>
+            <Card className="col-span-3">
+              <CardHeader>
+                <CardTitle>Recent Tasks</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {/* Add recent tasks list here */}
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+      </Tabs>
     </PageContainer>
   );
 }

@@ -2,9 +2,8 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { IconArrowRightDashed, IconDeviceLaptop, IconMoon, IconSun } from "@tabler/icons-react";
 import { useSearch } from "@/context/search-context";
-import { useTheme } from "@/context/theme-context";
+import { useTheme } from "next-themes";
 import {
   CommandDialog,
   CommandEmpty,
@@ -15,11 +14,56 @@ import {
   CommandSeparator,
 } from "@/components/shared/ui/command";
 import { ScrollArea } from "@/components/shared/ui/scroll-area";
-import { sidebarData } from "@/components/layout/data/sidebar-data";
+import { Moon, Sun, Laptop, ArrowRight } from "lucide-react";
+
+const groups = [
+  {
+    title: "Worker Workspace",
+    items: [
+      {
+        title: "Overview",
+        href: "/worker-workspace",
+      },
+      {
+        title: "Node Management",
+        href: "/worker-workspace/manage-nodes",
+      },
+      {
+        title: "Performance",
+        href: "/worker-workspace/performance",
+      },
+      {
+        title: "Earnings",
+        href: "/worker-workspace/earnings",
+      },
+    ],
+  },
+  {
+    title: "Cloud Workspace",
+    items: [
+      {
+        title: "Overview",
+        href: "/cloud-workspace",
+      },
+      {
+        title: "Projects",
+        href: "/cloud-workspace/projects",
+      },
+      {
+        title: "Deployments",
+        href: "/cloud-workspace/deployments",
+      },
+      {
+        title: "Resources",
+        href: "/cloud-workspace/resources",
+      },
+    ],
+  },
+];
 
 export function CommandMenu() {
   const router = useRouter();
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const { open, setOpen } = useSearch();
 
   const runCommand = React.useCallback(
@@ -31,31 +75,25 @@ export function CommandMenu() {
   );
 
   return (
-    <CommandDialog modal open={open} onOpenChange={setOpen}>
+    <CommandDialog open={open} onOpenChange={setOpen}>
       <CommandInput placeholder="Type a command or search..." />
       <CommandList>
-        <ScrollArea type="hover" className="h-72 pr-1">
+        <ScrollArea className="h-[300px]">
           <CommandEmpty>No results found.</CommandEmpty>
-          {sidebarData.teams?.map((team) => (
-            <React.Fragment key={team.value}>
-              <CommandGroup heading={team.label}>
-                {team.groups?.map((group) => (
-                  <React.Fragment key={group.title}>
-                    {group.items?.map((item, i) => (
-                      <CommandItem
-                        key={`${item.href}-${i}`}
-                        value={item.title}
-                        onSelect={() => {
-                          runCommand(() => router.push(item.href));
-                        }}
-                      >
-                        <div className="mr-2 flex h-4 w-4 items-center justify-center">
-                          <IconArrowRightDashed className="size-2 text-muted-foreground/80" />
-                        </div>
-                        {item.title}
-                      </CommandItem>
-                    ))}
-                  </React.Fragment>
+          {groups.map((group) => (
+            <React.Fragment key={group.title}>
+              <CommandGroup heading={group.title}>
+                {group.items?.map((item) => (
+                  <CommandItem
+                    key={item.href}
+                    value={item.title}
+                    onSelect={() => {
+                      runCommand(() => router.push(item.href));
+                    }}
+                  >
+                    <ArrowRight className="mr-2 h-4 w-4" />
+                    {item.title}
+                  </CommandItem>
                 ))}
               </CommandGroup>
             </React.Fragment>
@@ -63,15 +101,25 @@ export function CommandMenu() {
           <CommandSeparator />
           <CommandGroup heading="Theme">
             <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
-              <IconSun /> <span>Light</span>
+              <Sun className="mr-2 h-4 w-4" />
+              Light
+              {theme === "light" && (
+                <span className="ml-auto text-xs">Active</span>
+              )}
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
-              <IconMoon className="scale-90" />
-              <span>Dark</span>
+              <Moon className="mr-2 h-4 w-4" />
+              Dark
+              {theme === "dark" && (
+                <span className="ml-auto text-xs">Active</span>
+              )}
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme("system"))}>
-              <IconDeviceLaptop />
-              <span>System</span>
+              <Laptop className="mr-2 h-4 w-4" />
+              System
+              {theme === "system" && (
+                <span className="ml-auto text-xs">Active</span>
+              )}
             </CommandItem>
           </CommandGroup>
         </ScrollArea>

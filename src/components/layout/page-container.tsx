@@ -13,7 +13,7 @@ interface PageContainerProps {
 
 export function PageContainer({ children, title }: PageContainerProps) {
 	return (
-		<div className="flex min-h-screen flex-col">
+		<div className="flex min-h-screen w-full flex-col">
 			<Header className="w-full flex flex-row justify-between border-border border-b">
 				<Search />
 				<div className="ml-auto flex flex-row flex-1 items-center justify-end space-x-4">
