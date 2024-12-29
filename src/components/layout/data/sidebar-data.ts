@@ -18,7 +18,14 @@ import {
   Users,
   Layers,
   GitBranch,
-  MonitorPlay
+  MonitorPlay,
+  FolderGit,
+  Database,
+  Container,
+  Bot,
+  Workflow,
+  Blocks,
+  AppWindow
 } from "lucide-react";
 import { SidebarData } from "../types";
 
@@ -116,6 +123,23 @@ const cloudNavGroups = [
         href: "/cloud-workspace/projects",
         icon: Layers,
         badge: "5",
+        items: [
+          {
+            title: "All Projects",
+            href: "/cloud-workspace/projects",
+            icon: FolderGit,
+          },
+          {
+            title: "Databases",
+            href: "/cloud-workspace/projects/databases",
+            icon: Database,
+          },
+          {
+            title: "Containers",
+            href: "/cloud-workspace/projects/containers",
+            icon: Container,
+          }
+        ]
       },
     ],
   },
@@ -126,6 +150,28 @@ const cloudNavGroups = [
         title: "Deployments",
         href: "/cloud-workspace/deployments",
         icon: Cloud,
+        items: [
+          {
+            title: "Applications",
+            href: "/cloud-workspace/deployments/apps",
+            icon: AppWindow,
+          },
+          {
+            title: "Services",
+            href: "/cloud-workspace/deployments/services",
+            icon: Blocks,
+          },
+          {
+            title: "Functions",
+            href: "/cloud-workspace/deployments/functions",
+            icon: Bot,
+          },
+          {
+            title: "Workflows",
+            href: "/cloud-workspace/deployments/workflows",
+            icon: Workflow,
+          }
+        ]
       },
       {
         title: "Code Editor",

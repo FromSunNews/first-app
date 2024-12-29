@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { ChevronsUpDown } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 import {
   DropdownMenu,
@@ -22,10 +23,14 @@ interface TeamSwitcherProps {
 
 export function TeamSwitcher({ teams = [] }: TeamSwitcherProps) {
   const router = useRouter();
-  const [activeTeam, setActiveTeam] = React.useState(teams[0]);
+  const pathname = usePathname();
+  
+  // Find active team based on pathname
+  const activeTeam = React.useMemo(() => {
+    return teams.find(team => pathname.startsWith(`/${team.value}`)) || teams[0];
+  }, [teams, pathname]);
 
   const handleTeamChange = (team: Team) => {
-    setActiveTeam(team);
     router.push(`/${team.value}`);
   };
 
@@ -52,12 +57,6 @@ export function TeamSwitcher({ teams = [] }: TeamSwitcherProps) {
                         "group-data-[collapsed=true]/sidebar:h-6 group-data-[collapsed=true]/sidebar:w-6"
                       )}
                     >
-                      {/* {React.createElement(activeTeam.icon, {
-                        className: cn(
-                          "h-4 w-4",
-                          "group-data-[collapsed=true]/sidebar:h-3 group-data-[collapsed=true]/sidebar:w-3"
-                        )
-                      })} */}
                       <Avatar>
                         <AvatarImage src={"/logo/icon.png"} width={24} height={24} />
                         <AvatarFallback>{activeTeam.name.charAt(0)}</AvatarFallback>
@@ -96,7 +95,10 @@ export function TeamSwitcher({ teams = [] }: TeamSwitcherProps) {
               <DropdownMenuItem
                 key={team.value}
                 onClick={() => handleTeamChange(team)}
-                className="flex items-center gap-3 p-3"
+                className={cn(
+                  "flex items-center gap-3 p-3",
+                  pathname.startsWith(`/${team.value}`) && "bg-accent"
+                )}
               >
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
                   {React.createElement(team.icon, {

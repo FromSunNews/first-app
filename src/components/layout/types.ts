@@ -17,8 +17,9 @@ export interface NavItem {
   title: string;
   href: string;
   icon?: LucideIcon;
-  badge?: string;
   disabled?: boolean;
+  badge?: string;
+  items?: NavItem[];
 }
 
 export interface NavGroup {
