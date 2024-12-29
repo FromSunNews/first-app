@@ -8,13 +8,14 @@ interface MainProps extends React.HTMLAttributes<HTMLElement> {
   ref?: React.Ref<HTMLElement>;
 }
 
-export const Main = ({ fixed, ...props }: MainProps) => {
+export const Main = ({ fixed, className, ...props }: MainProps) => {
   return (
     <main
       className={cn(
         "peer-[.header-fixed]/header:mt-16",
         "px-4 py-6",
-        fixed && "fixed-main flex flex-grow flex-col overflow-hidden"
+        fixed && "fixed-main flex flex-col flex-grow overflow-hidden",
+        className
       )}
       {...props}
     />

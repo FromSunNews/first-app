@@ -1,8 +1,9 @@
 import { Icons } from "@/components/shared/icons";
+import { PageContainer } from "@/components/layout/page-container";
 
 export default function WorkerWorkspacePage() {
   return (
-    <div className="flex-1 space-y-8 p-8 pt-6">
+    <PageContainer title="Worker Workspace">
       <div className="flex flex-col items-center justify-center space-y-4 text-center">
         <div className="rounded-full bg-primary/10 p-4">
           <Icons.server className="h-8 w-8" />
@@ -62,6 +63,6 @@ export default function WorkerWorkspacePage() {
           </div>
         </div>
       </div>
-    </div>
+    </PageContainer>
   );
 }
